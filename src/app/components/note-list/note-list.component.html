@@ -1,1 +1,39 @@
-<p>note-list works!</p>
+<div *ngIf="notes.length > 0; else noNotes">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      class="bg-white p-5 rounded-2xl shadow hover:shadow-xl hover:scale-[1.01] transition-all duration-200 cursor-pointer min-h-[140px] flex flex-col justify-between"
+      *ngFor="let note of notes"
+      tabindex="0"
+      role="button"
+      aria-label="Note Card"
+    >
+      <h3 class="text-lg font-bold text-gray-900 truncate" title="{{ note.title }}">
+        {{ note.title }}
+      </h3>
+      <p class="text-sm text-gray-600 mt-2 line-clamp-3" title="{{ note.description }}">
+        {{ note.description }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<ng-template #noNotes>
+  <div class="text-center py-20 text-gray-500">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="mx-auto h-16 w-16 mb-4 text-gray-300"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 8v4m0 4h.01M5 13l4 4L19 7"
+      />
+    </svg>
+    <p class="text-lg font-semibold">No notes yet</p>
+    <p class="text-sm">Click "Add Note" to get started</p>
+  </div>
+</ng-template>
