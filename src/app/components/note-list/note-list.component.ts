@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Note } from '../../note.modal';
-
+import { HomePageComponent } from '../../pages/home-page/home-page.component';
 @Component({
   selector: 'app-note-list',
   imports: [CommonModule],
@@ -10,11 +10,26 @@ import { Note } from '../../note.modal';
   standalone: true,
 })
 export class NoteListComponent {
-  notes = [
-    { title: 'Shopping List', description: 'Milk, Bread, Eggs' },
-    { title: 'Project Ideas', description: 'Build a personal CRM app' },
-    { title: 'Angular Tips', description: 'Use trackBy for ngFor performance' },
+  @Output() editNote = new EventEmitter<{ note: Note; index: number }>();
+  public notes = [
+    {
+      title: 'Shopping List',
+      description: 'Milk, Bread, Eggs',
+      date: new Date('2025-05-01T10:30:00'),
+    },
+    {
+      title: 'Project Ideas',
+      description: 'Build a personal CRM app',
+      date: new Date('2025-05-05T12:00:00'),
+    },
+    {
+      title: 'Angular Tips',
+      description: 'Use trackBy for ngFor performance',
+      date: new Date('2025-05-10T09:15:00'),
+    },
   ];
 
-  editNote(note: Note) {}
+  loadModal() {
+    this.editNote.emit();
+  }
 }

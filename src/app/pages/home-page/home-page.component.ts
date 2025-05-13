@@ -1,4 +1,11 @@
-import { Component, ComponentRef, ViewChild, viewChild, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ComponentRef,
+  ViewChild,
+  viewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { NoteListComponent } from '../../components/note-list/note-list.component';
 import { NoteCardComponent } from '../../components/note-card/note-card.component';
@@ -14,8 +21,9 @@ import { CommonModule } from '@angular/common';
 export class HomePageComponent {
   @ViewChild('modalReference', { read: ViewContainerRef })
   modal!: ViewContainerRef;
-
-  loadModal(mode: 'add' | 'edit') {
+  @ViewChild(NoteListComponent)
+  noteListComponent!: NoteListComponent;
+  public loadModal(mode: 'add' | 'edit') {
     this.modal.clear();
     const modalRef: ComponentRef<ModalComponent> = this.modal.createComponent(ModalComponent);
     modalRef.instance.mode = mode;
@@ -28,7 +36,11 @@ export class HomePageComponent {
     // Optionally handle form submission
     modalRef.instance.submitForm.subscribe((data) => {
       console.log('Form submitted:', data);
-      // Do something with the data (add/edit note)
+      console.log(this.noteListComponent.notes);
+      this.noteListComponent.notes.push({
+        ...data,
+        date: new Date(), // ✅ Add date on submission
+      });
     });
   }
 }

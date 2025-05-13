@@ -14,12 +14,19 @@
         {{ note.description }}
       </p>
 
+      <!-- ✅ DATE SECTION -->
+      <p class="text-xs text-gray-400 mt-3">
+        {{ note.date | date: 'mediumDate' }} at {{ note.date | date: 'shortTime' }}
+      </p>
+
       <!-- Edit and Delete Controls (hidden by default) -->
       <div
         class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2"
         aria-label="Note Controls"
       >
         <button
+          id="step8"
+          (click)="loadModal()"
           class="text-white bg-blue-500 hover:bg-blue-600 p-2 rounded-full shadow-md focus:outline-none"
           aria-label="Edit Note"
         >
