@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import introJs from 'intro.js';
+import { Note } from '../../note.modal';
 
 @Component({
   selector: 'app-modal',
@@ -13,7 +14,7 @@ export class ModalComponent implements OnInit {
   @Input() mode: 'add' | 'edit' = 'add';
   @Output() closeModal = new EventEmitter<void>();
   @Output() submitForm = new EventEmitter<{ title: string; description: string }>();
-
+  @Input() note: Note | undefined;
   form: FormGroup;
   introJs = introJs();
 
@@ -21,10 +22,18 @@ export class ModalComponent implements OnInit {
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
+      date: new Date(Date.now()),
     });
   }
 
   ngOnInit() {
+    if (this.mode === 'edit' && this.note) {
+      this.form.patchValue({
+        title: this.note.title,
+        description: this.note.description,
+        date: new Date(this.note.date),
+      });
+    }
     this.runIntroIfFirstTime();
   }
 

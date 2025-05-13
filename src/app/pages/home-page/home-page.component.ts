@@ -11,6 +11,7 @@ import { NoteListComponent } from '../../components/note-list/note-list.componen
 import { NoteCardComponent } from '../../components/note-card/note-card.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { CommonModule } from '@angular/common';
+import { Note } from '../../note.modal';
 
 @Component({
   selector: 'app-home-page',
@@ -23,24 +24,32 @@ export class HomePageComponent {
   modal!: ViewContainerRef;
   @ViewChild(NoteListComponent)
   noteListComponent!: NoteListComponent;
-  public loadModal(mode: 'add' | 'edit') {
+  public loadModal(mode: 'add' | 'edit', note?: Note, index?: number) {
     this.modal.clear();
     const modalRef: ComponentRef<ModalComponent> = this.modal.createComponent(ModalComponent);
+
     modalRef.instance.mode = mode;
 
-    // Subscribe to closeModal
+    if (mode === 'edit' && note) {
+      modalRef.instance.note = note;
+    }
+
     modalRef.instance.closeModal.subscribe(() => {
-      modalRef.destroy(); // 💥 Closes the modal
+      modalRef.destroy(); // Closes the modal
     });
 
-    // Optionally handle form submission
     modalRef.instance.submitForm.subscribe((data) => {
-      console.log('Form submitted:', data);
-      console.log(this.noteListComponent.notes);
-      this.noteListComponent.notes.push({
-        ...data,
-        date: new Date(), // ✅ Add date on submission
-      });
+      if (mode === 'edit' && typeof index === 'number') {
+        this.noteListComponent.notes[index] = {
+          ...data,
+          date: new Date(), // update date
+        };
+      } else {
+        this.noteListComponent.notes.push({
+          ...data,
+          date: new Date(),
+        });
+      }
     });
   }
 }

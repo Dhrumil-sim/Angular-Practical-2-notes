@@ -11,6 +11,7 @@ import { HomePageComponent } from '../../pages/home-page/home-page.component';
 })
 export class NoteListComponent {
   @Output() editNote = new EventEmitter<{ note: Note; index: number }>();
+  @Output() deleteNote = new EventEmitter<number>();
   public notes = [
     {
       title: 'Shopping List',
@@ -25,11 +26,12 @@ export class NoteListComponent {
     {
       title: 'Angular Tips',
       description: 'Use trackBy for ngFor performance',
-      date: new Date('2025-05-10T09:15:00'),
+      date: String(new Date('2025-05-10T09:15:00')),
     },
   ];
 
-  loadModal() {
-    this.editNote.emit();
+  loadModal(note: Note, index: number) {
+    console.log('Hello', note, index);
+    this.editNote.emit({ note, index });
   }
 }
