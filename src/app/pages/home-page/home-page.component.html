@@ -2,15 +2,23 @@
   <div class="max-w-6xl mx-auto space-y-8">
     <!-- Header -->
     <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-      <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">My Notes</h1>
+      <h1
+        id="step1"
+        data-intro="Welcome to the new App"
+        class="text-4xl font-extrabold text-gray-900 tracking-tight"
+      >
+        My Notes
+      </h1>
 
       <!-- Search Bar -->
       <div class="w-full md:w-1/2 lg:w-1/3">
-        <app-search-bar></app-search-bar>
+        <app-search-bar id="step2"></app-search-bar>
       </div>
 
       <!-- Add Note Button -->
       <button
+        id="step3"
+        (click)="loadModal('add')"
         class="flex items-center gap-2 bg-indigo-600 text-white px-5 py-2.5 rounded-2xl shadow-lg hover:bg-indigo-700 transition duration-200 ease-in-out"
       >
         <svg
@@ -31,8 +39,10 @@
       </button>
     </header>
 
+    <ng-template #modalReference></ng-template>
+
     <!-- Note List -->
-    <main>
+    <main id="step4">
       <app-note-list></app-note-list>
     </main>
   </div>
