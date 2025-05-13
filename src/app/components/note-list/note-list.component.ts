@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Note } from '../../note.modal';
 import { HomePageComponent } from '../../pages/home-page/home-page.component';
+import { NoteCardComponent } from '../note-card/note-card.component';
 @Component({
   selector: 'app-note-list',
-  imports: [CommonModule],
+  imports: [CommonModule, NoteCardComponent],
   templateUrl: './note-list.component.html',
   styleUrl: './note-list.component.css',
   standalone: true,
@@ -34,4 +35,5 @@ export class NoteListComponent {
     console.log('Hello', note, index);
     this.editNote.emit({ note, index });
   }
+  showNoteCard() {}
 }

@@ -41,10 +41,14 @@
     </header>
 
     <ng-template #modalReference></ng-template>
+    <ng-template #cardComponentReference></ng-template>
 
     <!-- Note List -->
     <main id="step4">
-      <app-note-list (editNote)="loadModal('edit', $event.note, $event.index)"></app-note-list>
+      <app-note-list
+        (editNote)="loadModal('edit', $event.note, $event.index)"
+        (deleteNote)="onDeleteNote($event)"
+      ></app-note-list>
     </main>
   </div>
 </div>

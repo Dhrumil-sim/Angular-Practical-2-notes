@@ -1,6 +1,7 @@
 <div *ngIf="notes.length > 0; else noNotes">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <div
+      (click)="showNoteCard()"
       class="relative bg-white p-5 rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer min-h-[140px] flex flex-col justify-between group"
       *ngFor="let note of notes; let i = index"
       tabindex="0"
@@ -48,6 +49,7 @@
         <button
           class="text-white bg-red-500 hover:bg-red-600 p-2 rounded-full shadow-md focus:outline-none"
           aria-label="Delete Note"
+          (click)="deleteNote.emit(i)"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -89,3 +91,4 @@
     <p class="text-sm">Click "Add Note" to get started</p>
   </div>
 </ng-template>
+<ng-template #noteCard></ng-template>

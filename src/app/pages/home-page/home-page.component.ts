@@ -52,4 +52,7 @@ export class HomePageComponent {
       }
     });
   }
+  onDeleteNote(index: number): void {
+    this.noteListComponent.notes.splice(index, 1);
+  }
 }
