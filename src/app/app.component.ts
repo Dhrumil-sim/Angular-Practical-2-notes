@@ -15,7 +15,7 @@ export class AppComponent {
   introJs = introJs();
   ngOnInit() {
     this.introJs.setOptions({
-      steps: [
+      steps: [  
         {
           element: '#step1',
           intro: 'Welcome to your new app!',

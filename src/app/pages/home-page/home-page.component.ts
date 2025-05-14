@@ -55,4 +55,7 @@ export class HomePageComponent {
   onDeleteNote(index: number): void {
     this.noteListComponent.notes.splice(index, 1);
   }
+  onSearch(query: string): void {
+    this.noteListComponent.filterNotes(query);
+  }
 }

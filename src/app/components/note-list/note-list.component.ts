@@ -30,6 +30,20 @@ export class NoteListComponent {
       date: String(new Date('2025-05-10T09:15:00')),
     },
   ];
+  public originalNotes = [...this.notes]; // store unfiltered notes
+  // Called by parent to filter
+  filterNotes(search: string) {
+    const query = search.toLowerCase().trim();
+    if (!query) {
+      this.notes = [...this.originalNotes];
+    } else {
+      this.notes = this.originalNotes.filter(
+        (note) =>
+          note.title.toLowerCase().includes(query) ||
+          note.description.toLowerCase().includes(query),
+      );
+    }
+  }
 
   loadModal(note: Note, index: number) {
     console.log('Hello', note, index);
